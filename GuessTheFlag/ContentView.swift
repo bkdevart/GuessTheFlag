@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack(alignment: .leading) {
+        HStack(spacing: 20) {
             Text("Hello, world!")
             Text("This is another text view")
         }
