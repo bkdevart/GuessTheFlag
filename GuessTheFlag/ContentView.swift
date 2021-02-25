@@ -9,12 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Text("First")
-            Text("Second")
-            Text("Third")
-            Spacer()
-            Text("Fourth")
+        ZStack {
+            Text("hello World")
+            Text("This is inside a stack")
         }
         
     }
