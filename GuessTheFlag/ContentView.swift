@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Button("Tap me!") {
+        Button(action: {
             print("Button was tapped")
+        }) {
+            Image(systemName: "pencil")
         }
     }
 }
