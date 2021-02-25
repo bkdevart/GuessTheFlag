@@ -12,7 +12,11 @@ struct ContentView: View {
         Button(action: {
             print("Button was tapped")
         }) {
-            Image(systemName: "pencil")
+            HStack(spacing: 10) {
+                Image(systemName: "pencil")
+                Text("Edit")
+            }
+            
         }
     }
 }
