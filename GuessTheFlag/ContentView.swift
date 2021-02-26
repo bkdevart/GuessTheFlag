@@ -8,9 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showingAlert = false
+    var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"]
+    var correctAnswer = Int.random(in: 0...2)
+    
     var body: some View {
-        Text("Hello World")
+        ZStack {
+            Color.blue.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            
+            VStack(spacing: 30) {
+                VStack {
+                    Text("Tap the flag of")
+                        .foregroundColor(.white)
+                    Text(countries[correctAnswer])
+                        .foregroundColor(.white)
+                }
+                
+                ForEach(0 ..< 3) { number in
+                    Button(action: {
+                        // flag was tapped
+                    }) {
+                        Image(self.countries[number])
+                            .renderingMode(.original)
+                    }
+                }
+                
+                Spacer()
+            }
+        }
     }
 }
 
