@@ -14,6 +14,23 @@ struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
     @State private var userScore = 0
+//    Go back to project 2 and create a FlagImage() view that renders one flag image using the specific set of modifiers we had.
+    struct FlagImage: View {
+        var country: String
+        
+        init(country: String) {
+            // may not need anything here
+            self.country = country
+        }
+        
+        var body: some View {
+            Image(self.country)
+                .renderingMode(.original)
+                .clipShape(Capsule())
+                .overlay(Capsule().stroke(Color .black, lineWidth: 1))
+                .shadow(color: .black, radius: 2)
+        }
+    }
     
     var body: some View {
         ZStack {
