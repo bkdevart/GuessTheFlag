@@ -19,7 +19,6 @@ struct ContentView: View {
         var country: String
         
         init(country: String) {
-            // may not need anything here
             self.country = country
         }
         
@@ -53,11 +52,7 @@ struct ContentView: View {
                     Button(action: {
                         self.flagTapped(number)
                     }) {
-                        Image(self.countries[number])
-                            .renderingMode(.original)
-                            .clipShape(Capsule())
-                            .overlay(Capsule().stroke(Color .black, lineWidth: 1))
-                            .shadow(color: .black, radius: 2)
+                        FlagImage(country: self.countries[number])
                     }
                 }
                 VStack {
