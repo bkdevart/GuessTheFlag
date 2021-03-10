@@ -57,7 +57,8 @@ struct ContentView: View {
                         FlagImage(country: self.countries[number])
                         //            When you tap the correct flag, make it spin around 360 degrees on the Y axis.
                     }
-                    .rotation3DEffect(.degrees((number == correctAnswer) ? animationAmount : 0.0), axis: (x: 0, y: 1, z: 0))
+                    .rotation3DEffect(.degrees((number == correctAnswer) ? animationAmount : 0.0),
+                                      axis: (x: 0, y: 1, z: 0))
                 }
                 
                 VStack {
