@@ -14,7 +14,9 @@ struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
     @State private var userScore = 0
-//    Go back to project 2 and create a FlagImage() view that renders one flag image using the specific set of modifiers we had.
+    
+    @State private var animationAmount = 0.0
+
     struct FlagImage: View {
         var country: String
         
@@ -53,8 +55,11 @@ struct ContentView: View {
                         self.flagTapped(number)
                     }) {
                         FlagImage(country: self.countries[number])
+                        //            When you tap the correct flag, make it spin around 360 degrees on the Y axis.
                     }
+                    .rotation3DEffect(.degrees((number == correctAnswer) ? animationAmount : 0.0), axis: (x: 0, y: 1, z: 0))
                 }
+                
                 VStack {
                     Text("Current Score: \(userScore)")
                         .foregroundColor(.white)
@@ -75,6 +80,9 @@ struct ContentView: View {
         if number == correctAnswer {
             scoreTitle = "Correct"
             userScore += 1
+            withAnimation {
+                self.animationAmount += 360
+            }
         } else {
             scoreTitle = "Wrong!  That's the flag of \(countries[number])"
             userScore -= 1
