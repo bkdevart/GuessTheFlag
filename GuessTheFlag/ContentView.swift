@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+struct fadeOutModifier: ViewModifier {
+    let amount: Double
+
+    func body(content: Content) -> some View {
+        content.opacity(amount)
+    }
+}
+
+extension AnyTransition {
+    static var fadeOut: AnyTransition {
+        .modifier(
+            active: fadeOutModifier(amount: 0.25),
+            identity: fadeOutModifier(amount: 1.00)
+        )
+    }
+}
+
+
 struct ContentView: View {
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
@@ -16,6 +34,7 @@ struct ContentView: View {
     @State private var userScore = 0
     
     @State private var animationAmount = 0.0
+    @State private var flagOpacity = 1.0
 
     struct FlagImage: View {
         var country: String
@@ -30,6 +49,7 @@ struct ContentView: View {
                 .clipShape(Capsule())
                 .overlay(Capsule().stroke(Color .black, lineWidth: 1))
                 .shadow(color: .black, radius: 2)
+                .transition(.fadeOut)
         }
     }
     
@@ -55,10 +75,10 @@ struct ContentView: View {
                         self.flagTapped(number)
                     }) {
                         FlagImage(country: self.countries[number])
-                        //            When you tap the correct flag, make it spin around 360 degrees on the Y axis.
                     }
                     .rotation3DEffect(.degrees((number == correctAnswer) ? animationAmount : 0.0),
                                       axis: (x: 0, y: 1, z: 0))
+                    .opacity((number != correctAnswer) ? flagOpacity : 1.0)
                 }
                 
                 VStack {
@@ -83,10 +103,12 @@ struct ContentView: View {
             userScore += 1
             withAnimation {
                 self.animationAmount += 360
+                self.flagOpacity = 0.25
             }
         } else {
             scoreTitle = "Wrong!  That's the flag of \(countries[number])"
             userScore -= 1
+            self.flagOpacity = 0.25
         }
         
         showingScore = true
@@ -95,6 +117,11 @@ struct ContentView: View {
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        flagOpacity = 1.0
+    }
+    
+    func isFaded() {
+        
     }
 }
 
