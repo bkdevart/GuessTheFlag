@@ -35,6 +35,7 @@ struct ContentView: View {
     
     @State private var animationAmount = 0.0
     @State private var flagOpacity = 1.0
+    @State private var scaleEffect: CGFloat = 1
 
     struct FlagImage: View {
         var country: String
@@ -79,6 +80,7 @@ struct ContentView: View {
                     .rotation3DEffect(.degrees((number == correctAnswer) ? animationAmount : 0.0),
                                       axis: (x: 0, y: 1, z: 0))
                     .opacity((number != correctAnswer) ? flagOpacity : 1.0)
+                    .scaleEffect((number != correctAnswer) ? scaleEffect : 1)
                 }
                 
                 VStack {
@@ -109,6 +111,9 @@ struct ContentView: View {
             scoreTitle = "Wrong!  That's the flag of \(countries[number])"
             userScore -= 1
             self.flagOpacity = 0.25
+            withAnimation {
+                self.scaleEffect = 0
+            }
         }
         
         showingScore = true
@@ -118,6 +123,7 @@ struct ContentView: View {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
         flagOpacity = 1.0
+        scaleEffect = 1
     }
     
     func isFaded() {
