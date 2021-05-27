@@ -26,6 +26,12 @@ extension AnyTransition {
 
 
 struct ContentView: View {
+    let labels = [
+        "Estonia": "Flag with three horizontal stripes of equal size.  Top stripe blue, midddle stripe black, bottom stripe white",
+        "France": "Flag with three vertical stripes of equal size.  Left stripe blue, middle stripe white, right stripe red"
+        // more flag descriptions here
+    ]
+    
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
     
@@ -76,6 +82,7 @@ struct ContentView: View {
                         self.flagTapped(number)
                     }) {
                         FlagImage(country: self.countries[number])
+                            .accessibility(label: Text(self.lables[self.countries[number], default: "Unknown flag"]))
                     }
                     .rotation3DEffect(.degrees((number == correctAnswer) ? animationAmount : 0.0),
                                       axis: (x: 0, y: 1, z: 0))
